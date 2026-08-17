@@ -2,6 +2,8 @@ import { XMLParser } from 'fast-xml-parser';
 
 const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '@_', trimValues: true });
 
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export class ApiError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -90,13 +92,13 @@ export async function apiRequest(path: string, opts: RequestOptions = {}) {
     body = buildXml(opts.xmlRoot, opts.xmlBody);
   }
 
-  const res = await fetch(path, { method: opts.method || 'GET', headers, body });
+  const res = await fetch(`${API_BASE_URL}${path}`, { method: opts.method || 'GET', headers, body });
   if (res.status === 204) return {};
   return parseXmlOrThrow(res);
 }
 
 export async function downloadFile(path: string, token: string | null, suggestedName = 'download') {
-  const res = await fetch(path, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+  const res = await fetch(`${API_BASE_URL}${path}`, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
   if (!res.ok) throw new ApiError('Download failed', res.status);
   const blob = await res.blob();
   const url = URL.createObjectURL(blob);
