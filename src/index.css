@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", serif;
+  --font-body: "Karla", sans-serif;
+
+  --color-ink: #2b1420;
+  --color-muted: #8b6b75;
+  --color-cloud: #fbf6f5;
+  --color-surface: #ffffff;
+  --color-border: #e8d6dc;
+  --color-burgundy: #7c2350;
+  --color-burgundy-dark: #4a1030;
+  --color-burgundy-light: #f7e9ee;
+  --color-gold: #c89b4c;
+  --color-danger: #b3261e;
+}
+
+body {
+  background: var(--color-cloud);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+}
+
+.brand-gradient {
+  background: linear-gradient(135deg, #4a1030 0%, #7c2350 55%, #a8497a 100%);
+}
